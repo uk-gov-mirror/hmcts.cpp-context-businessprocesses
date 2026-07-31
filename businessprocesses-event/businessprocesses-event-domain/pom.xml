@@ -19,6 +19,33 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-progression-caag-schema</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>uk.gov.moj.cpp.progression</groupId>
+                                    <artifactId>progression-query-api</artifactId>
+                                    <version>${progression.version}</version>
+                                    <classifier>raml</classifier>
+                                    <type>jar</type>
+                                    <overWrite>true</overWrite>
+                                    <outputDirectory>${project.build.directory}/generated-resources/progression-schema</outputDirectory>
+                                    <includes>raml/json/schema/progression.query.prosecutioncase.caag.json</includes>
+                                </artifactItem>
+                            </artifactItems>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>uk.gov.justice.generators</groupId>
                 <artifactId>pojo-generation-plugin</artifactId>
                 <executions>
@@ -33,6 +60,67 @@
                                 uk.gov.justice.generation.io.files.parser.SchemaDefinitionParserFactory
                             </parserName>
                             <sourceDirectory>src/main/resources/json</sourceDirectory>
+                            <outputDirectory>${project.build.directory}/generated-sources
+                            </outputDirectory>
+                            <includes>
+                                <include>**/*.json</include>
+                            </includes>
+                            <generatorProperties implementation="uk.gov.justice.generation.pojo.core.PojoGeneratorProperties">
+                                <plugins>
+                                    <plugin>
+                                        uk.gov.justice.generation.pojo.plugin.classmodifying.AddHashcodeAndEqualsPlugin
+                                    </plugin>
+                                    <plugin>
+                                        uk.gov.justice.generation.pojo.plugin.classmodifying.AddToStringMethodToClassPlugin
+                                    </plugin>
+                                    <plugin>
+                                        uk.gov.justice.generation.pojo.plugin.classmodifying.AddAdditionalPropertiesToClassPlugin
+                                    </plugin>
+                                    <plugin>
+                                        uk.gov.justice.generation.pojo.plugin.typemodifying.ReferenceCustomReturnTypePlugin
+                                    </plugin>
+                                    <plugin>
+                                        uk.gov.justice.generation.pojo.plugin.typemodifying.FormatCustomReturnTypePlugin
+                                    </plugin>
+                                    <plugin>
+                                        uk.gov.justice.generation.pojo.plugin.classmodifying.MakeClassSerializablePlugin
+                                    </plugin>
+                                </plugins>
+                                <typeMappings>
+                                    <typeMapping>
+                                        <name>uuid</name>
+                                        <type>reference</type>
+                                        <implementation>java.util.UUID</implementation>
+                                    </typeMapping>
+                                    <typeMapping>
+                                        <name>date</name>
+                                        <type>reference</type>
+                                        <implementation>java.time.LocalDate</implementation>
+                                    </typeMapping>
+                                    <typeMapping>
+                                        <name>date-time</name>
+                                        <type>format</type>
+                                        <implementation>java.time.ZonedDateTime</implementation>
+                                    </typeMapping>
+                                </typeMappings>
+                            </generatorProperties>
+                        </configuration>
+                        <goals>
+                            <goal>generate-pojos</goal>
+                        </goals>
+                        <phase>generate-sources</phase>
+                    </execution>
+                    <execution>
+                        <id>pojo-generation-progression-caag</id>
+                        <configuration>
+                            <skip>false</skip>
+                            <generatorName>
+                                uk.gov.justice.generation.SchemaPojoGeneratorFactory
+                            </generatorName>
+                            <parserName>
+                                uk.gov.justice.generation.io.files.parser.SchemaDefinitionParserFactory
+                            </parserName>
+                            <sourceDirectory>${project.build.directory}/generated-resources/progression-schema/raml/json</sourceDirectory>
                             <outputDirectory>${project.build.directory}/generated-sources
                             </outputDirectory>
                             <includes>
@@ -105,6 +193,12 @@
                                 <artifactId>common-core-domain</artifactId>
                             </exclusion>
                         </exclusions>
+                    </dependency>
+                    <dependency>
+                        <groupId>uk.gov.moj.cpp.progression</groupId>
+                        <artifactId>progression-domain-message</artifactId>
+                        <version>${progression.version}</version>
+                        <classifier>raml</classifier>
                     </dependency>
                 </dependencies>
             </plugin>
