@@ -37,9 +37,9 @@
         <!-- corresponding context versions -->
         <coredomain.version>17.104.4</coredomain.version>
         <sjp.version>17.103.169</sjp.version>
-        <hearing.version>17.104.168</hearing.version>
+        <hearing.version>17.104.183</hearing.version>
         <referencedata.version>17.104.137</referencedata.version>
-        <progression.version>17.0.269</progression.version>
+        <progression.version>17.0.280</progression.version>
         <usersgroups.version>17.104.49</usersgroups.version>
         <listing.version>17.103.162</listing.version>
         <h2.version>1.4.196</h2.version>
