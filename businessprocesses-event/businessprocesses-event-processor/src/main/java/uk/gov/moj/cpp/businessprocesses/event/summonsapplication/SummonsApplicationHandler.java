@@ -40,7 +40,12 @@ public class SummonsApplicationHandler {
     public static final String HEARING = "hearing";
     public static final String ID = "id";
 
-    private static final List<String> SUMMONS_TYPE_CODES = Arrays.asList("MC80804", "MC80518");
+    private static final List<String> SUMMONS_TYPE_CODES = Arrays.asList(
+            "MC80804", "MC80518", "MC80508", "PC00501", "PC00505", "PC00502", "PC00504", "PC00565",
+            "PC00595", "PC00700", "CJ08514", "CJ03525", "CJ03510", "SO59501", "CJ08504", "CJ03506",
+            "SE20502", "CJ08507", "PC09510", "CJ03526", "CJ08521", "CJ03529", "SE20501", "CJ03531",
+            "SE20517", "SE20540", "SE20530", "SE20547", "SE20542", "SE20537", "PC00510", "CJ03524",
+            "SE20505", "SE20548", "SE20552", "SE20546", "SE20521");
 
     // lookup against the code rather than the id ??
     private static final UUID SUMMONS_APPROVED = UUID.fromString("0f44eeb9-2c81-430d-9a60-bbdaf8c4a093");
@@ -105,7 +110,7 @@ public class SummonsApplicationHandler {
 
         final JsonObject eventPayload = jsonEnvelope.payloadAsJsonObject();
 
-        Hearing hearing = null;
+        Hearing hearing;
         try {
             hearing = objectMapper.readValue(eventPayload.getJsonObject(HEARING).toString(), Hearing.class);
         } catch (IOException e) {
@@ -125,7 +130,8 @@ public class SummonsApplicationHandler {
                 courtApplications.forEach(courtApplication -> {
                     if (isNotEmpty(summonsApprovedJudicialResults) || isNotEmpty(summonsRejectedJudicialResults)) {
                         final String applicationResult =  isNotEmpty(summonsApprovedJudicialResults) ? "Summons Approved" : "Summons Rejected";
-                        summonsApplicationTaskHandler.completeSummonsApplicationWorkFlow(courtApplication.getApplicationReference(), applicationResult);
+                        final String hearingId = hearing.getId().toString();
+                        summonsApplicationTaskHandler.completeSummonsApplicationWorkFlow(courtApplication.getApplicationReference(), applicationResult, hearingId);
                     }
                 });
             }

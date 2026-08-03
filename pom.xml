@@ -5,7 +5,7 @@
     <parent>
         <groupId>uk.gov.moj.cpp.common</groupId>
         <artifactId>service-parent-pom</artifactId>
-        <version>25.104.0-M7</version>
+        <version>25.104.0-M9</version>
     </parent>
 
     <groupId>uk.gov.moj.cpp.bpm</groupId>
@@ -36,7 +36,7 @@
         <cpp.camunda.version>7.24.0</cpp.camunda.version>
 
         <!-- corresponding context versions -->
-        <coredomain.version>25.104.0-M7</coredomain.version>
+        <coredomain.version>25.104.0-M10</coredomain.version>
         <sjp.version>17.104.180</sjp.version>
         <hearing.version>17.104.179</hearing.version>
         <referencedata.version>17.103.133</referencedata.version>

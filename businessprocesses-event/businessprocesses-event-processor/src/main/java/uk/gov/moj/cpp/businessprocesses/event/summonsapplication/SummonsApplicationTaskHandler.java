@@ -2,6 +2,7 @@ package uk.gov.moj.cpp.businessprocesses.event.summonsapplication;
 
 import static uk.gov.moj.cpp.businessprocesses.shared.Constants.APPLICATION_ID;
 import static uk.gov.moj.cpp.businessprocesses.shared.Constants.APPLICATION_REFERENCE;
+import static uk.gov.moj.cpp.businessprocesses.shared.Constants.PROCESS_NEW_SUMMONS_APPLICATION;
 import static uk.gov.moj.cpp.businessprocesses.shared.Constants.SYSTEM_USER_NAME;
 import static uk.gov.moj.cpp.businessprocesses.shared.ProcessVariableConstants.CASE_URN;
 import static uk.gov.moj.cpp.businessprocesses.shared.ProcessVariableConstants.COMPLETION_REASON;
@@ -71,10 +72,11 @@ public class SummonsApplicationTaskHandler {
     }
 
     public void completeSummonsApplicationWorkFlow(final String applicationUrn,
-                                                   final String applicationResult) {
+                                                   final String applicationResult, final String hearingId) {
         final List<Task> tasks = taskService.createTaskQuery()
-                .processDefinitionKey("process_new_summons_application")
+                .processDefinitionKey(PROCESS_NEW_SUMMONS_APPLICATION)
                 .processInstanceBusinessKey(applicationUrn)
+                .processVariableValueEquals(HEARING_ID, hearingId)
                 .active()
                 .list();
 

@@ -86,7 +86,7 @@ class SummonsApplicationHandlerTest {
     @Test
     void handleSummonsApplicationResulted() throws IOException {
         // given
-        final String hearingId = "9c4894cb-0708-4f80-bee5-95236dfdd7e8";
+        final String hearingId = "0adf8ff5-5e7e-4abd-b00b-df7585b8a3a5";
         final JsonObject eventPayload = getFileContentAsJson("json/summon-application/public.events.hearing.hearing-resulted.json");
         final JsonEnvelope requestEnvelope = envelopeFrom(metadataWithRandomUUID("public.events.hearing.hearing-resulted"), eventPayload);
 
@@ -94,6 +94,6 @@ class SummonsApplicationHandlerTest {
         summonsApplicationHandler.handleSummonsApplicationResulted(requestEnvelope);
 
         // then
-        verify(summonsApplicationTaskHandler, times(1)).completeSummonsApplicationWorkFlow("CPJKJUAK8G", "Summons Approved");
+        verify(summonsApplicationTaskHandler, times(1)).completeSummonsApplicationWorkFlow("CPJKJUAK8G", "Summons Approved", hearingId);
     }
 }
