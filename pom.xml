@@ -5,7 +5,7 @@
     <parent>
         <groupId>uk.gov.moj.cpp.common</groupId>
         <artifactId>service-parent-pom</artifactId>
-        <version>25.104.0-M9</version>
+        <version>25.104.0-M10</version>
     </parent>
 
     <groupId>uk.gov.moj.cpp.bpm</groupId>
@@ -36,13 +36,13 @@
         <cpp.camunda.version>7.24.0</cpp.camunda.version>
 
         <!-- corresponding context versions -->
-        <coredomain.version>25.104.0-M10</coredomain.version>
-        <sjp.version>17.104.180</sjp.version>
+        <coredomain.version>25.104.0-M11</coredomain.version>
+        <sjp.version>17.104.192</sjp.version>
         <hearing.version>17.104.183</hearing.version>
         <referencedata.version>17.104.138</referencedata.version>
-        <progression.version>17.0.279</progression.version>
+        <progression.version>17.0.283</progression.version>
         <usersgroups.version>17.104.50</usersgroups.version>
-        <listing.version>17.103.175</listing.version>
+        <listing.version>17.104.8</listing.version>
         <h2.version>2.3.232</h2.version>
         <!-- end - corresponding context versions -->
         <!-- Artemis Jakarta client for ITs; matches the Artemis shipped in WildFly 40. Move to the BOM in a future milestone. -->
