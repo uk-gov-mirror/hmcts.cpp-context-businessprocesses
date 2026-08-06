@@ -6,7 +6,7 @@
     <parent>
         <groupId>uk.gov.moj.cpp.bpm</groupId>
         <artifactId>businessprocesses-parent</artifactId>
-        <version>25.104.3-M3-SNAPSHOT</version>
+        <version>25.104.3-M4-SNAPSHOT</version>
     </parent>
 
     <artifactId>businessprocesses-integration-test</artifactId>
