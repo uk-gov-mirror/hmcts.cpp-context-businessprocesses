@@ -11,7 +11,7 @@ import uk.gov.justice.services.core.dispatcher.SystemUserProvider;
 import uk.gov.moj.cpp.businessprocesses.service.TaskTypeService;
 
 import java.time.ZonedDateTime;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -103,13 +103,14 @@ class SummonsApplicationTaskHandlerTest {
         when(taskService.createTaskQuery()).thenReturn(taskQuery);
         when(taskQuery.processDefinitionKey("process_new_summons_application")).thenReturn(taskQuery);
         when(taskQuery.processInstanceBusinessKey(applicationReference)).thenReturn(taskQuery);
+        when(taskQuery.processVariableValueEquals("hearingId", hearingId)).thenReturn(taskQuery);
         when(taskQuery.active()).thenReturn(taskQuery);
-        when(taskQuery.list()).thenReturn(Arrays.asList(task));
+        when(taskQuery.list()).thenReturn(Collections.singletonList(task));
         when(task.getId()).thenReturn(taskId);
         when(task.getProcessInstanceId()).thenReturn(taskId);
 
         // when
-        summonsApplicationTaskHandler.completeSummonsApplicationWorkFlow(applicationReference, applicationResult);
+        summonsApplicationTaskHandler.completeSummonsApplicationWorkFlow(applicationReference, applicationResult, hearingId);
 
         // then
         verify(taskQuery, times(1)).processDefinitionKey("process_new_summons_application");
