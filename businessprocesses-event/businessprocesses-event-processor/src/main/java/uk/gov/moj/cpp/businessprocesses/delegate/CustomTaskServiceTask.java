@@ -18,7 +18,7 @@ import static uk.gov.moj.cpp.businessprocesses.shared.ProcessVariableConstants.H
 import static uk.gov.moj.cpp.businessprocesses.shared.ProcessVariableConstants.HEARING_TYPE;
 
 import uk.gov.justice.courts.progression.query.Caag;
-import uk.gov.justice.courts.progression.query.caag.Defendant;
+import uk.gov.justice.courts.progression.query.Defendants;
 import uk.gov.justice.listing.events.Hearing;
 import uk.gov.justice.listing.events.HearingDay;
 import uk.gov.justice.services.common.converter.JsonObjectToObjectConverter;
@@ -99,7 +99,7 @@ public class CustomTaskServiceTask implements JavaDelegate {
             return;
         }
 
-        final List<Defendant> defendantList = caag.getDefendants();
+        final List<Defendants> defendantList = caag.getDefendants();
         final Optional<LocalDate> optionalCtlDate = defendantList.stream()
                 .filter(d -> isNotEmpty(d.getCtlExpiryDate()))
                 .map(defendant -> parse(defendant.getCtlExpiryDate()))
